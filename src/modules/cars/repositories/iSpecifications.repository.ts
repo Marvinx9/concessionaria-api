@@ -1,4 +1,5 @@
 import { Category } from '../model/category';
+import { Specification } from '../model/specification';
 
 interface ICreateSpecificationDto {
   name: string;
@@ -7,7 +8,7 @@ interface ICreateSpecificationDto {
 
 interface ISpecificationsRepository {
   create({ name, description }: ICreateSpecificationDto): void;
-  findByName(name: string): Category;
+  findByName(name: string): Specification;
   list(): Category[];
 }
 

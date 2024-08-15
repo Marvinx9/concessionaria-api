@@ -1,36 +1,38 @@
-import { Category } from '../model/category';
+import { Specification } from '../model/specification';
 import {
-  ICategoriesRepository,
-  ICreateCategoryDto,
-} from './iCategories.repository';
+  ICreateSpecificationDto,
+  ISpecificationsRepository,
+} from './iSpecifications.repository';
 
-class CategoriesRepository implements ICategoriesRepository {
-  private categories: Category[];
+class SpecificationsRepository implements ISpecificationsRepository {
+  private specifications: Specification[];
 
   constructor() {
-    this.categories = [];
+    this.specifications = [];
   }
 
-  create({ name, description }: ICreateCategoryDto): void {
-    const category = new Category();
+  findByName(name: string): Specification {
+    const specification = this.specifications.find(
+      (specification) => specification.name === name,
+    );
+    return specification;
+  }
 
-    Object.assign(category, {
+  list(): Specification[] {
+    return this.specifications;
+  }
+
+  create({ name, description }: ICreateSpecificationDto): void {
+    const specification = new Specification();
+
+    Object.assign(specification, {
       name,
       description,
       created_at: new Date(),
     });
 
-    this.categories.push(category);
-  }
-
-  list(): Category[] {
-    return this.categories;
-  }
-
-  findByName(name: string): Category {
-    const category = this.categories.find((category) => category.name === name);
-    return category;
+    this.specifications.push(specification);
   }
 }
 
-export { CategoriesRepository };
+export { SpecificationsRepository };
