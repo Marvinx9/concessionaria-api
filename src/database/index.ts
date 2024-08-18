@@ -7,6 +7,8 @@ const AppDataSource = new DataSource({
   username: 'admin',
   password: 'admin',
   database: 'concessionaria',
+  entities: [],
+  migrations: ['src/database/migrations/*.ts'],
 });
 
 AppDataSource.initialize()
