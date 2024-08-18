@@ -1,13 +1,16 @@
 import { DataSource } from 'typeorm';
+import { Category } from '../modules/cars/entities/category';
+import { Specification } from '../modules/cars/entities/specification';
 
 const AppDataSource = new DataSource({
   type: 'postgres',
-  host: 'localhost',
+  host: 'database_concessionaria',
   port: 5432,
   username: 'admin',
   password: 'admin',
   database: 'concessionaria',
-  entities: [],
+  synchronize: true,
+  entities: [Category, Specification],
   migrations: ['src/database/migrations/*.ts'],
 });
 

@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+COPY wait-for-it.sh /usr/app/
+
 EXPOSE 3333
 
-CMD ["npm", "run", "dev"]
+CMD ["./wait-for-it.sh", "database_concessionaria:5432", "--", "npm", "run", "dev"]
