@@ -5,8 +5,6 @@ class CreateCategoryController {
   constructor(private createCategoryUseCase: CreateCategoryUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
-    console.log('chegou aqui 1');
-
     const { name, description } = request.body;
 
     await this.createCategoryUseCase.execute({ name, description });

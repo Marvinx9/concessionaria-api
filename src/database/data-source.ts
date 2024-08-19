@@ -4,14 +4,13 @@ import { Specification } from '../modules/cars/entities/specification';
 
 export const dataSource = new DataSource({
   type: 'postgres',
-  host: 'localhost',
+  host: 'database_concessionaria',
   port: 5432,
-  username: 'postgres',
+  username: 'admin',
   password: 'admin',
-  database: 'postgres',
+  database: 'concessionaria',
   synchronize: true,
-  logging: true,
-  subscribers: [],
-  migrations: ['src/database/migrations/*.ts'],
+  logging: false,
   entities: [Category, Specification],
+  migrations: ['src/database/migrations/*.ts'],
 });
