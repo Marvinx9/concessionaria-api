@@ -1,25 +1,42 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateSpecifications1723949755533 implements MigrationInterface {
+export class CreateUsers1724284802410 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    const tableExists = await queryRunner.hasTable('specifications');
+    const tableExists = await queryRunner.hasTable('users');
     if (!tableExists) {
       await queryRunner.createTable(
         new Table({
-          name: 'specifications',
+          name: 'users',
           columns: [
             {
               name: 'id',
               type: 'uuid',
-              isPrimary: true,
             },
             {
               name: 'name',
               type: 'varchar',
             },
             {
-              name: 'description',
+              name: 'username',
               type: 'varchar',
+              isUnique: true,
+            },
+            {
+              name: 'password',
+              type: 'varchar',
+            },
+            {
+              name: 'email',
+              type: 'varchar',
+            },
+            {
+              name: 'driver_license',
+              type: 'varchar',
+            },
+            {
+              name: 'isAdmin',
+              type: 'boolean',
+              default: false,
             },
             {
               name: 'created_at',
@@ -33,6 +50,6 @@ export class CreateSpecifications1723949755533 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('specifications');
+    await queryRunner.dropTable('users');
   }
 }
