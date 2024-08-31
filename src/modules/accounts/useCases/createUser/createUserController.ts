@@ -8,11 +8,14 @@ class CreateUserController {
 
     const createUserUseCase = container.resolve(CreateUserUseCase);
 
+    const is_admin = false;
+
     await createUserUseCase.execute({
       name,
       email,
       password,
       driver_license,
+      is_admin,
     });
 
     return response.status(201).send();

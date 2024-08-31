@@ -2,9 +2,9 @@ import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 
 @Entity('users')
-class User {
+class Users {
   @PrimaryColumn()
-  id: string;
+  id?: string;
 
   @Column()
   name: string;
@@ -19,7 +19,7 @@ class User {
   driver_license: string;
 
   @Column()
-  isAdmin: boolean;
+  is_admin: boolean;
 
   @CreateDateColumn()
   created_at: Date;
@@ -31,4 +31,4 @@ class User {
   }
 }
 
-export { User };
+export { Users };

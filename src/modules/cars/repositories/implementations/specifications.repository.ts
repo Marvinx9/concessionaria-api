@@ -1,26 +1,16 @@
 import { Repository } from 'typeorm';
 import { dataSource } from '../../../../database/data-source';
-import { Specification } from '../../entities/specification';
+import { Specifications } from '../../entities/specification';
 import {
   ICreateSpecificationDto,
   ISpecificationsRepository,
 } from '../iSpecifications.repository';
 
 class SpecificationsRepository implements ISpecificationsRepository {
-  private repository: Repository<Specification>;
+  private repository: Repository<Specifications>;
 
   constructor() {
-    this.repository = dataSource.getRepository(Specification);
-  }
-
-  async findByName(name: string): Promise<Specification> {
-    const specification = await this.repository.findOneBy({ name });
-    return specification;
-  }
-
-  async list(): Promise<Specification[]> {
-    const specifications = await this.repository.find();
-    return specifications;
+    this.repository = dataSource.getRepository(Specifications);
   }
 
   async create({ name, description }: ICreateSpecificationDto): Promise<void> {
@@ -30,6 +20,16 @@ class SpecificationsRepository implements ISpecificationsRepository {
     });
 
     await this.repository.save(specification);
+  }
+
+  async list(): Promise<Specifications[]> {
+    const specifications = await this.repository.find();
+    return specifications;
+  }
+
+  async findByName(name: string): Promise<Specifications> {
+    const specification = await this.repository.findOneBy({ name });
+    return specification;
   }
 }
 
