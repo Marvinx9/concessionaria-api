@@ -21,6 +21,9 @@ class Users {
   @Column()
   is_admin: boolean;
 
+  @Column({ nullable: true })
+  avatar: string | null;
+
   @CreateDateColumn()
   created_at: Date;
 
