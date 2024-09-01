@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm';
-import { Category } from '../modules/cars/entities/category';
-import { Specifications } from '../modules/cars/entities/specification';
-import { Users } from '../modules/accounts/entities/user';
+import { Category } from '../../../modules/cars/infra/typeorm/entities/category';
+import { Specifications } from '../../../modules/cars/infra/typeorm/entities/specification';
+import { Users } from '../../../modules/accounts/infra/typeorm/entities/user';
 import * as dotenv from 'dotenv';
 
 dotenv.config();

@@ -1,13 +1,13 @@
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import 'reflect-metadata';
+import '../../container';
+import '../typeorm/data-source';
 import swaggerUi from 'swagger-ui-express';
-import swaggerFile from './swagger.json';
+import swaggerFile from '../../../swagger.json';
+import { dataSource } from '../typeorm/data-source';
+import { AppError } from '../../errors/appError';
 import { router } from './routes';
-import { dataSource } from './database/data-source';
-import './shared/container';
-import './database/data-source';
-import { AppError } from './errors/appError';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const app = express();

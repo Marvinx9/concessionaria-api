@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import 'reflect-metadata'; // necessário para uso de injeção de dependências com tsyringe
-import { AppError } from '../../../../errors/appError';
+import { AppError } from '../../../../shared/errors/appError';
 import { AuthenticateUserUseCase } from './authenticateUserUseCase';
 import { IUsersRepository } from '../../repositories/iUsersRepository';
 import { compare } from 'bcrypt';

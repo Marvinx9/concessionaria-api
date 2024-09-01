@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { UsersRepository } from '../modules/accounts/repositories/implementations/usersRepository';
+import { UsersRepository } from '../../../../modules/accounts/infra/typeorm/repositories/usersRepository';
 import { verify } from 'jsonwebtoken';
-import { AppError } from '../errors/appError';
+import { AppError } from '../../../errors/appError';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
