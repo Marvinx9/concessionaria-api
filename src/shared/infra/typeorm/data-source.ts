@@ -16,5 +16,5 @@ export const dataSource = new DataSource({
   synchronize: true,
   logging: false,
   entities: [Category, Specifications, Users],
-  migrations: ['src/database/migrations/*.ts'],
+  migrations: ['src/shared/infra/typeorm/migrations/*.ts'],
 });
