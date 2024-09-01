@@ -48,7 +48,7 @@ describe('AuthenticateUserUseCase', () => {
     //Arrange
     mockUsersRepository.findByEmail.mockResolvedValueOnce(makeUser);
 
-    (compare as jest.Mock).mockResolvedValue(true);
+    (compare as jest.Mock).mockResolvedValueOnce(true);
 
     (sign as jest.Mock).mockReturnValue('fake-token');
 
@@ -64,7 +64,7 @@ describe('AuthenticateUserUseCase', () => {
   });
 
   it('Should throw if user not exists', async () => {
-    mockUsersRepository.findByEmail = jest.fn().mockResolvedValue(null);
+    mockUsersRepository.findByEmail = jest.fn().mockResolvedValueOnce(null);
 
     await expect(
       authenticateUserUseCase.execute(makeValidCredential),
@@ -72,12 +72,15 @@ describe('AuthenticateUserUseCase', () => {
   });
 
   it('Should throw error if user insert invalid password', async () => {
-    mockUsersRepository.findByEmail = jest.fn().mockResolvedValue(makeUser);
+    mockUsersRepository.findByEmail = jest.fn().mockResolvedValueOnce(makeUser);
 
-    (compare as jest.Mock).mockResolvedValue(false);
+    // (compare as jest.Mock).mockResolvedValue(false);
 
     await expect(
-      authenticateUserUseCase.execute(makeUser),
+      authenticateUserUseCase.execute({
+        email: 'any_email@mail.com',
+        password: 'other_password',
+      }),
     ).rejects.toStrictEqual(new AppError('Email or password incorrect!', 400));
   });
 });
