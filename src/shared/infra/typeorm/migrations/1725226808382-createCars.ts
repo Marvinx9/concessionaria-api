@@ -59,9 +59,11 @@ export class CreateCars1725226808382 implements MigrationInterface {
       }),
     );
 
+    // Criação da chave estrangeira, associando a tabela "cars" à "categories"
     await queryRunner.createForeignKey(
       'cars',
       new TableForeignKey({
+        name: 'FKCategoryCar',
         columnNames: ['category_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'categories',
@@ -72,6 +74,7 @@ export class CreateCars1725226808382 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    // Primeiro, remova a chave estrangeira antes de remover a tabela
     await queryRunner.dropForeignKey('cars', 'FKCategoryCar');
     await queryRunner.dropTable('cars');
   }
