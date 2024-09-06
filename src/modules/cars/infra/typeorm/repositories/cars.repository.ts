@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import { dataSource } from '../../../../../shared/infra/typeorm/data-source';
+import { ICreateCarDto } from '../../../dtos/iCreateCarDto';
 import { ICarsRepository } from '../../../repositories/iCars.repository';
-import { ICreateCarDto } from '../../../dtos/ICreateCarDto';
 import { Car } from '../entities/car';
 
 class CarsRepository implements ICarsRepository {
