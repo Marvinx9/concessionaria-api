@@ -1,4 +1,4 @@
-import 'reflect-metadata'; // necessário para uso de injeção de dependências com tsyringe
+import 'reflect-metadata';
 import { CreateCategoryUseCase } from './createCategoryUseCase';
 import { ICategoriesRepository } from '../../repositories/iCategories.repository';
 import { AppError } from '../../../../shared/errors/appError';

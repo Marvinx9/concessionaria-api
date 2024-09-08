@@ -1,4 +1,5 @@
-import { CarsRepository } from '../../infra/typeorm/repositories/cars.repository';
+import 'reflect-metadata';
+import { ICarsRepository } from '../../repositories/iCars.repository';
 import { CreateCarUseCase } from './createCarUseCase';
 
 //Arrange Values
@@ -12,20 +13,26 @@ const makeCreateCar = {
   category_id: '1',
 };
 
-let createCarUseCase: CreateCarUseCase;
-let carsRepository: CarsRepository;
+const mockcarsRepository: jest.Mocked<ICarsRepository> = {
+  create: jest.fn(),
+  findByLicensePlate: jest.fn(),
+  findAvailable: jest.fn(),
+};
 
 describe('CreateCarUseCase', () => {
+  let createCarUseCase: CreateCarUseCase;
+
   beforeEach(() => {
-    carsRepository = new CarsRepository();
-    createCarUseCase = new CreateCarUseCase(carsRepository);
+    createCarUseCase = new CreateCarUseCase(mockcarsRepository);
   });
-  it('Should be able to create a new car', async () => {
+
+  it('Should be able to list available cars', async () => {
+    //Arrange
+
     //Act
     await createCarUseCase.execute(makeCreateCar);
+
+    //Assert
+    expect(mockcarsRepository.create).toHaveBeenCalled();
   });
-
-  it('Should not be able to create a car with exists license plate', async () => {});
-
-  it('Should create a car with available true by default', async () => {});
 });
