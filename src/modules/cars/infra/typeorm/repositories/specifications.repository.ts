@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { Specifications } from '../entities/specification';
 import {
   ICreateSpecificationDto,
@@ -13,13 +13,25 @@ class SpecificationsRepository implements ISpecificationsRepository {
     this.repository = dataSource.getRepository(Specifications);
   }
 
-  async create({ name, description }: ICreateSpecificationDto): Promise<void> {
+  async findByIds(ids: string[]): Promise<Specifications[]> {
+    const specifications = await this.repository.findBy({
+      id: In(ids),
+    });
+    return specifications;
+  }
+
+  async create({
+    name,
+    description,
+  }: ICreateSpecificationDto): Promise<Specifications> {
     const specification = this.repository.create({
       name,
       description,
     });
 
     await this.repository.save(specification);
+
+    return specification;
   }
 
   async list(): Promise<Specifications[]> {
