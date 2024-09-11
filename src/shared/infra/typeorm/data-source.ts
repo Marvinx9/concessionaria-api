@@ -3,6 +3,7 @@ import { Category } from '../../../modules/cars/infra/typeorm/entities/category'
 import { Specifications } from '../../../modules/cars/infra/typeorm/entities/specification';
 import { Users } from '../../../modules/accounts/infra/typeorm/entities/user';
 import { Car } from '../../../modules/cars/infra/typeorm/entities/car';
+import { CarImage } from '../../../modules/cars/infra/typeorm/entities/carImage';
 import { Rental } from '../../../modules/rentals/infra/typeorm/entities/rental';
 import * as dotenv from 'dotenv';
 
@@ -17,6 +18,6 @@ export const dataSource = new DataSource({
   database: process.env.DB_NAME,
   synchronize: true,
   logging: false,
-  entities: [Category, Specifications, Users, Car, Rental],
+  entities: [Category, Specifications, Users, Car, CarImage, Rental],
   migrations: ['src/shared/infra/typeorm/migrations/*.ts'],
 });

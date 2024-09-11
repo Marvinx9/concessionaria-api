@@ -32,6 +32,7 @@ class RentalsRepository implements IRentalsRepository {
       car_id,
       expected_return_date,
       user_id,
+      start_date: 'SYSDATE',
     });
 
     await this.repository.save(rental);

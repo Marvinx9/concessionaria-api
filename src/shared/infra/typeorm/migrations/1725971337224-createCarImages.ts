@@ -40,6 +40,7 @@ export class CreateCarImages1725971337224 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.dropTable('cars_image');
+    await queryRunner.dropForeignKey('cars_image', 'FKCarImage');
+    await queryRunner.dropTable('cars_image');
   }
 }
