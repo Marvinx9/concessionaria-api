@@ -3,6 +3,7 @@ import { IDateProvider } from '../../../../shared/container/providers/dateProvid
 import { AppError } from '../../../../shared/errors/appError';
 import { Rental } from '../../infra/typeorm/entities/rental';
 import { IRentalsRepository } from '../../repositories/IRentalsRepository';
+import { ICarsRepository } from '../../../cars/repositories/iCars.repository';
 
 interface IRequest {
   user_id: string;
@@ -17,7 +18,10 @@ class CreateRentalUseCase {
     private rentalsRepository: IRentalsRepository,
     @inject('DayJsDateProvider')
     private dateProvider: IDateProvider,
+    @inject('CarsRepository')
+    private carsRepository: ICarsRepository,
   ) {}
+
   async execute({
     user_id,
     car_id,
@@ -56,6 +60,7 @@ class CreateRentalUseCase {
       expected_return_date,
     });
 
+    await this.carsRepository.updateAvailable(car_id, false);
     return rental;
   }
 }
