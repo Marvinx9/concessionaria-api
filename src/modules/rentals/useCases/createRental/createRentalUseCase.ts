@@ -38,9 +38,9 @@ class CreateRentalUseCase {
       throw new AppError("There's a rental in progress for user!");
     }
 
-    const expectedReturnDateFormat = 
+    const expectedReturnDateFormat = this.dateProvider.convertToUTC(expected_return_date)
 
-    const dateNow = dayjs().utc().local().format();
+    const dateNow = this.dateProvider.convertToUTC();
 
     const compare = 
 
