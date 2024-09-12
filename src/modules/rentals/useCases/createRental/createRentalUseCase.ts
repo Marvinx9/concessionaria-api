@@ -58,6 +58,7 @@ class CreateRentalUseCase {
       user_id,
       car_id,
       expected_return_date,
+      start_date: this.dateProvider.dateNow(),
     });
 
     await this.carsRepository.updateAvailable(car_id, false);
