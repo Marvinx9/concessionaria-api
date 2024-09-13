@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
-import { UsersRepository } from '../../../../modules/accounts/infra/typeorm/repositories/usersRepository';
 import { verify } from 'jsonwebtoken';
 import { AppError } from '../../../errors/appError';
 import * as dotenv from 'dotenv';
+import { UsersTokensRepository } from '../../../../modules/accounts/infra/typeorm/repositories/usersTokensRepository';
+import auth from '../../../../config/auth';
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ export async function ensureAuthenticated(
   next: NextFunction,
 ) {
   const authHeader = request.headers.authorization;
+  const userTokensRepository = new UsersTokensRepository();
 
   if (!authHeader) {
     throw new AppError('Token missing', 401);
@@ -24,10 +26,15 @@ export async function ensureAuthenticated(
   const [, token] = authHeader.split(' ');
 
   try {
-    const { sub: user_id } = verify(token, process.env.JWT_TOKEN) as IPayload;
+    const { sub: user_id } = verify(
+      token,
+      auth.secret_refresh_token,
+    ) as IPayload;
 
-    const usersRepository = new UsersRepository();
-    const user = await usersRepository.findById(user_id);
+    const user = await userTokensRepository.findByUserIdAndRefreshToken(
+      user_id,
+      token,
+    );
 
     if (!user) {
       throw new AppError('User does not exists!', 401);
