@@ -5,6 +5,7 @@ import { Users } from '../../../modules/accounts/infra/typeorm/entities/user';
 import { Car } from '../../../modules/cars/infra/typeorm/entities/car';
 import { CarImage } from '../../../modules/cars/infra/typeorm/entities/carImage';
 import { Rental } from '../../../modules/rentals/infra/typeorm/entities/rental';
+import { UserTokens } from '../../../modules/accounts/infra/typeorm/entities/userTokens';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -18,6 +19,14 @@ export const dataSource = new DataSource({
   database: process.env.DB_NAME,
   synchronize: true,
   logging: false,
-  entities: [Category, Specifications, Users, Car, CarImage, Rental],
+  entities: [
+    Category,
+    Specifications,
+    Users,
+    Car,
+    CarImage,
+    Rental,
+    UserTokens,
+  ],
   migrations: ['src/shared/infra/typeorm/migrations/*.ts'],
 });
