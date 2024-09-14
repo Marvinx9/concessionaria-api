@@ -25,6 +25,7 @@ class RefreshTokenUseCase {
       expires_in_refresh_token,
       expires_refresh_token_days,
     } = auth;
+
     const { email, sub } = verify(token, secret_refresh_token) as IPayload;
 
     const user_id = sub;
