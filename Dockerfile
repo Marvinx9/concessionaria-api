@@ -1,15 +1,16 @@
-FROM node
+FROM node:18
 
-WORKDIR /usr/app
+WORKDIR /app
 
-COPY package.json ./
-
+COPY package*.json ./
 RUN npm install
 
 COPY . .
 
-COPY wait-for-it.sh /usr/app/
+RUN npm install -g typescript
 
-EXPOSE 3333
+RUN npx tsc -p tsconfig-build.json
 
-CMD ["./wait-for-it.sh", "database_concessionaria:5432", "--", "npm", "run", "dev"]
+RUN npm run build
+
+CMD ["npm", "start"]
