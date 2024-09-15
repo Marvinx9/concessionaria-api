@@ -7,7 +7,7 @@ class RefreshTokenController {
     const token =
       request.body.token ||
       request.headers['x-access-token'] ||
-      request.query.toke;
+      request.query.token;
 
     const refreshTokenUseCase = container.resolve(RefreshTokenUseCase);
 

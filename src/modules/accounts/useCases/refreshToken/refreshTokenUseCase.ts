@@ -15,7 +15,7 @@ class RefreshTokenUseCase {
   constructor(
     @inject('UsersTokensRepository')
     private usersTokensRepository: IUsersTokensRepository,
-    @inject('DateProvader')
+    @inject('DayJsDateProvider')
     private dateProvider: IDateProvider,
   ) {}
 
