@@ -13,6 +13,7 @@ services:
       - db
     volumes:
       - .:/usr/src/app
+      - ./tmp/avatar:/app/tmp/avatar
     command: yarn start
 
   db:
