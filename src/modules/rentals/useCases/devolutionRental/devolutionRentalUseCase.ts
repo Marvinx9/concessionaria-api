@@ -26,7 +26,7 @@ class DevolutionRentalUseCase {
     const minimum_daily = 1;
 
     const car = await this.carsRepository.findById(rental.car_id);
-    console.log('chegou aqui', car);
+
     if (!rental) {
       throw new AppError('Rental does not exists!');
     }

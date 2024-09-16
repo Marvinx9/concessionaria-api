@@ -12,8 +12,6 @@ class CarsRepository implements ICarsRepository {
   }
 
   async findById(id: string): Promise<Car> {
-    console.log('opa');
-
     const car = await this.repository.findOneBy({ id });
     return car;
   }
