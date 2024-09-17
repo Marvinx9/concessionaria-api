@@ -14,6 +14,7 @@ services:
     volumes:
       - .:/usr/src/app
       - ./tmp/avatar:/app/tmp/avatar
+      - ./tmp/cars:/app/tmp/cars
     command: yarn start
 
   db:

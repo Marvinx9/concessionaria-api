@@ -5,6 +5,10 @@ import { EtherealMailProvider } from './mailProvider/implementations/EtherealMai
 import { IMailProvider } from './mailProvider/IMailProvider';
 import { IStorageProvider } from './storageProvider/IStorageProvider';
 import { LocalStorageProvider } from './storageProvider/implementations/localStorageProvider';
+import { S3StorageProvider } from './storageProvider/implementations/S3StorageProvider';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 container.registerSingleton<IDateProvider>(
   'DayJsDateProvider',
@@ -16,7 +20,12 @@ container.registerInstance<IMailProvider>(
   new EtherealMailProvider(),
 );
 
+const diskStorage = {
+  local: LocalStorageProvider,
+  s3: S3StorageProvider,
+};
+
 container.registerSingleton<IStorageProvider>(
   'StorageProvider',
-  LocalStorageProvider,
+  diskStorage[process.env.disk],
 );
