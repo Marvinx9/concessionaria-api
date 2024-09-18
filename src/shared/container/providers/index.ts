@@ -1,7 +1,7 @@
 import { container } from 'tsyringe';
 import { IDateProvider } from './dateProvider/IDateProvider';
 import { DayJsDateProvider } from './dateProvider/implementations/dayJsDateProvider';
-import { EtherealMailProvider } from './mailProvider/implementations/EtherealMailProvider';
+import { SendGridMailProvider } from './mailProvider/implementations/sendGridMailProvider';
 import { IMailProvider } from './mailProvider/IMailProvider';
 import { IStorageProvider } from './storageProvider/IStorageProvider';
 import { LocalStorageProvider } from './storageProvider/implementations/localStorageProvider';
@@ -16,8 +16,8 @@ container.registerSingleton<IDateProvider>(
 );
 
 container.registerInstance<IMailProvider>(
-  'EtherealMailProvider',
-  new EtherealMailProvider(),
+  'SendGridMailProvider',
+  new SendGridMailProvider(),
 );
 
 const diskStorage = {
