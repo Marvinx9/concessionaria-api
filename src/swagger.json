@@ -369,21 +369,21 @@
                   "brand":"string",
                   "in":"query",
                   "description":"brand",
-                  "required":true,
+                  "required":false,
                   "type":"string"
                },
                {  
                   "name":"string",
                   "in":"query",
                   "description":"Name",
-                  "required":true,
+                  "required":false,
                   "type":"string"
                },
                {  
                   "category_id":"string",
                   "in":"query",
-                  "description":"Category_id",
-                  "required":true,
+                  "description":"Category",
+                  "required":false,
                   "type":"string"
                }
             ],
@@ -441,6 +441,17 @@
         "security": [
           {
             "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "car id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -579,8 +590,152 @@
       }
     }
   }
+},
+"/rentals/": {
+  "post": {
+    "tags": ["Rental"],
+    "summary": "List rentals by user",
+    "description": "List rentals by user",
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "car_id": {
+                "type": "string"
+              },
+              "expected_return_date": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Rental completed successfully"
+      },
+      "401": {
+        "description": "Car is unavailable"
+      },
+      "400": {
+        "description": "Invalid return time!"
+      },
+      "500": {
+        "description": "There's a rental in progress for user!"
+      }
+    }
+  }
+},
+"/rentals/devolution/{id}": {
+  "post": {
+    "tags": ["Rental"],
+    "summary": "Return the car",
+    "description": "Car return",
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Rental id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+    "responses": {
+      "200": {
+        "description": "Rental devolution completed"
+      },
+      "500": {
+        "description": "Rental does not exists!"
+      }
+    }
+  }
+},
+"/password/forgot": {
+  "post": {
+    "tags": ["Password"],
+    "summary": "Send e-mail on forgot password",
+    "description": "Send e-mail on forgot password",
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "E-mail for password recovery send"
+      },
+      "500": {
+        "description": "User does not exists!"
+      }
+    }
+  }
+},
+"/password/reset": {
+  "post": {
+    "tags": ["Password"],
+    "summary": "Reset password",
+    "description": "Reset password",
+    "parameters":[  
+               {  
+                  "token":"string",
+                  "in":"query",
+                  "description":"token",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "password": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "E-mail for password recovery send"
+      },
+      "400": {
+        "description": "Token expired!"
+      },
+      "500": {
+        "description": "Token inválid!"
+      }
+    }
+  }
 }
-
   },
   "definitions": {
     "Specification": {
