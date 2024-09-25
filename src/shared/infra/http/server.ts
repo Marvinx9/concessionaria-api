@@ -8,11 +8,14 @@ import swaggerFile from '../../../swagger.json';
 import { dataSource } from '../typeorm/data-source';
 import { AppError } from '../../errors/appError';
 import { router } from './routes';
+import rateLimiterMiddleware from '../../../shared/infra/http/middlewares/rateLimiter';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const app = express();
 
 app.use(express.json());
+
+app.use(rateLimiterMiddleware);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
